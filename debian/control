@@ -6,23 +6,23 @@ Build-Depends: debhelper (>= 9), dh-autoreconf
 Standards-Version: 3.9.6
 Homepage: https://github.com/libvecpf/libvecpf
 
-Package: libvecpf
+Package: libvecpf1
 Architecture: ppc64 ppc64el powerpc
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: This library extends ISO C printf so that it may print out vector data types.
+Description: Vector Printf Library
  This library extends ISO C printf so that it may print out vector data types.
  The description of the extensions are in the AltiVec Technology Programming
- Interface Manual. Below is a paraphrasing of the extensions:
+ Interface Manual.
  .
 
 
 Package: libvecpf-dev
 Architecture: ppc64 ppc64el powerpc
 Section: libdevel
-Depends: libpaf-ebb0 (= ${binary:Version}), libpaf-dsc0 (= ${binary:Version}),  ${misc:Depends}
-Description: Devevelopment files for libvecpf.
+Depends: libvecpf1 (= ${binary:Version}), ${misc:Depends}
+Description: Vector Printf Library development files
  This library extends ISO C printf so that it may print out vector data types.
  The description of the extensions are in the AltiVec Technology Programming
- Interface Manual. Below is a paraphrasing of the extensions:
+ Interface Manual.
  .
- Development files.
+ This package contains the static library and header files used in development.

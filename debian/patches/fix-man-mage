@@ -1,0 +1,44 @@
+From 05eb00ee3a1de5cc39d65cbe806690e2f45fc971 Mon Sep 17 00:00:00 2001
+From: Frederic Bonnard <frediz@linux.vnet.ibm.com>
+Date: Fri, 29 May 2015 16:05:35 +0200
+Subject: [PATCH] Escape minus characters and typo
+
+Seems the - is used as minus and thus should be escaped.
+---
+ man/libvecpf.3 | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/man/libvecpf.3 b/man/libvecpf.3
+index 0d3a8c9..616bc3c 100644
+--- a/man/libvecpf.3
++++ b/man/libvecpf.3
+@@ -80,7 +80,7 @@ or
+ .IR int s.
+ .TP
+ .B vh, hv
+-A following integer conversions correponds to a 16 byte vector composed of eight
++A following integer conversions corresponds to a 16 byte vector composed of eight
+ .I vector unsigned
+ .IR short s
+ or
+@@ -399,7 +399,7 @@ specifiers, respectively.
+ #include <altivec.h>
+ 
+ int main() {
+-  vector double d = { -1111.12304912348f, 4567.987654f };
++  vector double d = { \-1111.12304912348f, 4567.987654f };
+ 
+   printf("%16.16vvf\n", d);
+ 
+@@ -407,7 +407,7 @@ int main() {
+ }
+ .fi
+ .SS Warnings
+-Using the additional printf length modifiers defined by this library in a program will cause the GCC compiler to complain in the following manner when compiled with -Wall:
++Using the additional printf length modifiers defined by this library in a program will cause the GCC compiler to complain in the following manner when compiled with \-Wall:
+ 
+ .in +0.5i
+ .B warning: unknown conversion type character ‘v’ in format
+-- 
+1.9.1
+
