@@ -1,0 +1,40 @@
+From fcb8b6d6bf2e5325fa03adc11e4cc4741540ce49 Mon Sep 17 00:00:00 2001
+From: Frederic Bonnard <frediz@linux.vnet.ibm.com>
+Date: Fri, 29 May 2015 15:50:20 +0200
+Subject: [PATCH] Honor LDFLAGS and CPPFLAGS
+
+In debian/ubuntu those flags are filled with hardening options. So reusing them in
+the Makefile to let the user pass specific flags if he wants.
+---
+ Makefile.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 9c4fec5..1ae0029 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -53,7 +53,7 @@ INSTALL = install
+ 
+ install_headers=$(top_srcdir)/include
+ 
+-ALL_FLAGS = -maltivec @CFLAGS@ @picflag@
++ALL_FLAGS = -maltivec @CFLAGS@ @picflag@ $(CPPFLAGS)
+ 
+ all: @enable_shared@ @enable_static@
+ 
+@@ -117,10 +117,10 @@ $(top_builddir)/$(SHARED_SONAME_LIB): $(top_builddir)/$(SHARED_REALNAME_LIB)
+ $(top_builddir)/$(SHARED_REALNAME_LIB): $(top_builddir)/vecpf.o
+ 	@echo +Linking relocatable object files into $@.
+ ifeq ($(sysheaders), )
+-	@CC@ $(ALL_FLAGS) -Wall -shared -Wl,-soname,$(SHARED_SONAME_LIB) -o $@ $(top_builddir)/vecpf.o  -I$(top_srcdir)
++	@CC@ $(ALL_FLAGS) $(LDFLAGS) -Wall -shared -Wl,-soname,$(SHARED_SONAME_LIB) -o $@ $(top_builddir)/vecpf.o  -I$(top_srcdir)
+ 	@echo
+ else
+-	@CC@ $(ALL_FLAGS) -Wall -shared -Wl,-soname,$(SHARED_SONAME_LIB) -o $@ $(top_builddir)/vecpf.o -I$(sysheaders)  -I$(top_srcdir)
++	@CC@ $(ALL_FLAGS) $(LDFLAGS) -Wall -shared -Wl,-soname,$(SHARED_SONAME_LIB) -o $@ $(top_builddir)/vecpf.o -I$(sysheaders)  -I$(top_srcdir)
+ 	@echo
+ endif
+ 
+-- 
+1.9.1
+
